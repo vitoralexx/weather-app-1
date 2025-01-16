@@ -4,7 +4,6 @@ const card = document.querySelector(".card");
 const apiKey = "6ee4a9e0d7785052119a3339cbaa281f";
 
 weatherForm.addEventListener("submit", async (e) => {
-
   e.preventDefault();
   const city = cityInput.value;
   if(city) {
@@ -16,29 +15,22 @@ weatherForm.addEventListener("submit", async (e) => {
       console.error(error);
       displayError(error);
     }
-
   } else {
     displayError("Please enter a city name");
   }
-
 });
 
 async function getWeatherData(city) {
-
   const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}`;
-
   const response = await fetch(apiUrl);
 
   if(!response.ok) {
     throw new Error("Could not fetch weather data");
   }
-
   return await response.json();
-
 }
 
 function displayWeatherInfo(data) {
-
   const {name: city, main: {temp, humidity}, weather: [{description, id}]} = data;
 
   card.textContent = "";
@@ -71,7 +63,6 @@ function displayWeatherInfo(data) {
 }
 
 function getWeatherEmoji(weatherId) {
-
   switch(true) {
     case (weatherId >= 200 && weatherId < 300):
       return "⛈️";
@@ -90,11 +81,9 @@ function getWeatherEmoji(weatherId) {
     default:
       return "🤷‍♂️";
   }
-
 }
 
 function displayError(message) {
-
   const errorDisplay = document.createElement("p");
   errorDisplay.textContent = message;
   errorDisplay.classList.add("errorDisplay");
@@ -102,6 +91,5 @@ function displayError(message) {
   card.textContent = "";
   card.style.display = "flex";
   card.appendChild(errorDisplay);
-
 }
 
